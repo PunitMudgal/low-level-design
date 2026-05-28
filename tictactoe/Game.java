@@ -2,6 +2,7 @@ package tictactoe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 // Game HAS-A Board and HAS-A List<Player>
@@ -47,10 +48,16 @@ public class Game {
             boolean validMove = false;
 
             while (!validMove) {
-                System.out.print("Enter row (0-2): ");
-                row = scanner.nextInt();
-                System.out.print("Enter col (0-2): ");
-                col = scanner.nextInt();
+                try {
+                    System.out.print("Enter row (0-2): ");
+                    row = scanner.nextInt();
+                    System.out.print("Enter col (0-2): ");
+                    col = scanner.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input! Please enter numbers only.");
+                    scanner.nextLine(); // clear invalid token
+                    continue;
+                }
 
                 if (row < 0 || row >= board.size || col < 0 || col >= board.size) {
                     System.out.println("Out of bounds! Try again.");
